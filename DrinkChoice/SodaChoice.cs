@@ -7,12 +7,23 @@ using System.Threading.Tasks;
 
 namespace DrinkChoice
 {
-    public class SodaChoice 
+    public class SodaChoice :INotifyPropertyChanged
     {
+
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public SodaType Soda { get; init; }
 
-        public bool Chosen { get; set; }
+        private bool _chosen;
+        public bool Chosen
+        {
+            get => _chosen;
+            set
+            {
+                _chosen = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Chosen)));
+            }
+        }
 
         public SodaChoice(SodaType type)
         {
